@@ -22,6 +22,17 @@ It appears to happen in `Buffer.toString()`, yet seems not to happen if I call
 {... output omitted, but no segfault ...}
 ```
 
+Additionally, the issue seems to go away when I make a throwaway copy of the
+buffer that I never use:
+```shell
+➜  nodejs-buffer-bug-case git:(master) ✗ USE_BUFFER_COPY=1 ~/.local/node-v0.10.38-darwin-x64/bin/node bug-case.js
+{... output omitted, but no segfault ...}
+➜  nodejs-buffer-bug-case git:(master) ✗ USE_BUFFER_COPY=1 ~/.local/node-v0.11.0-darwin-x64/bin/node bug-case.js
+{... output omitted, but no segfault ...}
+➜  nodejs-buffer-bug-case git:(master) ✗ USE_BUFFER_COPY=1 ~/.local/node-v0.12.3-darwin-x64/bin/node bug-case.js
+{... output omitted, but no segfault ...}
+```
+
 It also does *not* appear to happen on my Ubuntu VM:
 ```shell
 lmorchard@lmorchard:~/nodejs-buffer-bug-case$ uname -a

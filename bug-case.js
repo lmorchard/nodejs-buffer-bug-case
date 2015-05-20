@@ -8,6 +8,7 @@ var fs = require('fs');
 var path = require('path');
 
 var USE_CONSOLE_LOG = process.env.USE_CONSOLE_LOG == '1';
+var USE_BUFFER_COPY = process.env.USE_BUFFER_COPY == '1';
 var DATA_DIR = process.env.DATA_DIR || 'debug-data';
 
 // Load up all the test case data into buffers.
@@ -25,5 +26,6 @@ var buffers = fs.readdirSync(DATA_DIR).map(function (file) {
 // Do the thing with all the buffers.
 buffers.forEach(function (buf, idx) {
   if (USE_CONSOLE_LOG) { console.log('buffer', idx); }
+  if (USE_BUFFER_COPY) { var copy = new Buffer(buf); }
   var sep = buf.toString().indexOf(':');
 });
